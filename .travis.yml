@@ -8,10 +8,10 @@ before_install:
   - sha256sum --check "vagrant_${VAGRANT_VERSION}_x86_64.deb.sha256sum"
   - sudo dpkg -i "vagrant_${VAGRANT_VERSION}_x86_64.deb"
 script:
-  for RECIPE_DIR in recipes/* \
-  do \
-    test -d "${RECIPE_DIR}" && \
-    vagrant docker-run "${TARGET_PLATFORM}" -- fpm-cook --quiet package "/vagrant/${RECIPE_DIR}/recipe.rb" \
+  for RECIPE_DIR in recipes/*;
+  do
+    test -d "${RECIPE_DIR}" &&
+    vagrant docker-run "${TARGET_PLATFORM}" -- fpm-cook --quiet package "/vagrant/${RECIPE_DIR}/recipe.rb";
   done
 env:
   global:
