@@ -2,12 +2,24 @@ sudo: required
 services:
   - docker
 before_install:
-  - wget --quiet "https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb"
-  - wget --quiet "https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_SHA256SUMS"
+  - test -f "vagrant_${VAGRANT_VERSION}_x86_64.deb" || wget --quiet "https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb"
+  - test -f "vagrant_${VAGRANT_VERSION}_SHA256SUMS" || wget --quiet "https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_SHA256SUMS"
   - grep "vagrant_${VAGRANT_VERSION}_x86_64.deb" "vagrant_${VAGRANT_VERSION}_SHA256SUMS" > "vagrant_${VAGRANT_VERSION}_x86_64.deb.sha256sum"
   - sha256sum --check "vagrant_${VAGRANT_VERSION}_x86_64.deb.sha256sum"
   - sudo dpkg -i "vagrant_${VAGRANT_VERSION}_x86_64.deb"
 script:
-  - vagrant docker-run ubuntu1404 -- fpm-cook package /vagrant/recipes/graylog-server/recipe.rb
+  for RECIPE_DIR in recipes/* \
+  do \
+    test -d "${RECIPE_DIR}" && \
+    vagrant docker-run "${TARGET_PLATFORM}" -- fpm-cook --quiet package "/vagrant/${RECIPE_DIR}/recipe.rb" \
+  done
 env:
-  - VAGRANT_VERSION=1.8.5
+  global:
+    - VAGRANT_VERSION='1.8.5'
+  matrix:
+    - TARGET_PLATFORM='centos7'
+    - TARGET_PLATFORM='debian7'
+    - TARGET_PLATFORM='debian8'
+    - TARGET_PLATFORM='ubuntu1204'
+    - TARGET_PLATFORM='ubuntu1404'
+    - TARGET_PLATFORM='ubuntu1604'
