@@ -2,7 +2,8 @@ sudo: true
 before_install:
   - wget --quiet "https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb"
   - wget --quiet "https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_SHA256SUMS"
-  - sha256sum --check --ignore-missing "vagrant_${VAGRANT_VERSION}_SHA256SUMS"
+  - grep "vagrant_${VAGRANT_VERSION}_x86_64.deb" "vagrant_${VAGRANT_VERSION}_SHA256SUMS" > "vagrant_${VAGRANT_VERSION}_x86_64.deb.sha256sum"
+  - sha256sum --check "vagrant_${VAGRANT_VERSION}_x86_64.deb.sha256sum"
   - sudo dpkg -i "vagrant_${VAGRANT_VERSION}_x86_64.deb"
 script:
   - vagrant docker-run ubuntu1404 -- fpm-cook package /vagrant/recipes/graylog-server/recipe.rb
