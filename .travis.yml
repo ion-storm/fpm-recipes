@@ -11,15 +11,12 @@ script:
   for RECIPE_DIR in recipes/*;
   do
     test -d "${RECIPE_DIR}" &&
-    vagrant docker-run "${TARGET_PLATFORM}" -- fpm-cook --quiet package "/vagrant/${RECIPE_DIR}/recipe.rb";
+    RECIPE_NAME=$(basename "${RECIPE_DIR}")
+    vagrant docker-run "${TARGET_PLATFORM}" -- fpm-cook --quiet --tmp-root "/tmp/fpm-cook-${RECIPE_NAME}" --pkg-dir "/tmp/pkg-${RECIPE_NAME}" package "/vagrant/${RECIPE_DIR}/recipe.rb";
   done
 env:
   global:
     - VAGRANT_VERSION='1.8.5'
   matrix:
     - TARGET_PLATFORM='centos7'
-    - TARGET_PLATFORM='debian7'
     - TARGET_PLATFORM='debian8'
-    - TARGET_PLATFORM='ubuntu1204'
-    - TARGET_PLATFORM='ubuntu1404'
-    - TARGET_PLATFORM='ubuntu1604'
