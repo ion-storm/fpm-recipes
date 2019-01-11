@@ -20,8 +20,8 @@ default:
   license: "GPLv3"
 
 graylog-server:
-  source: "https://github.com/ion-storm/fpm-recipes/releases/download/1/graylog-#{version}#{suffix}.tgz"
-  sha256: "a403b14ea5d9e6ac6a2be4146e566e867435399c888bb4e64f1ce1ea23a37fa8"
+  source: "https://github.com/ion-storm/fpm-recipes/releases/download/2.5.1/graylog-#{version}#{suffix}.tgz"
+  sha256: "da85f0e4a26e10fef79df9170cc0f9faa341a098d02d4328817f02501b740ac7"
 
 graylog-enterprise-plugins:
   source: "https://packages.graylog2.org/releases/graylog-enterprise/plugin-bundle/tgz/graylog-enterprise-plugins-#{version}#{suffix}.tgz"
