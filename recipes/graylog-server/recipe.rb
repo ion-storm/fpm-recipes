@@ -43,7 +43,6 @@ class GraylogServer < FPM::Cookery::Recipe
   post_uninstall 'files/post-uninstall'
 
   def build
-    patch(workdir('patches/graylog-server.conf.patch'))
   end
 
   def install
