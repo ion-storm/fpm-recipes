@@ -21,7 +21,7 @@ default:
 
 graylog-server:
   source: "https://github.com/ion-storm/fpm-recipes/releases/download/2.5.2/graylog-#{version}#{suffix}.tgz"
-  sha256: "39a4c49a40cfd54d4883b47329e174dc0132b735f016ac3ee50423b738b45666"
+  sha256: "a4fc5186fc616e884ed6c54b1cc79f22b980269e96620d737bcb93fd3ebb1964"
 
 graylog-enterprise-plugins:
   source: "https://packages.graylog2.org/releases/graylog-enterprise/plugin-bundle/tgz/graylog-enterprise-plugins-#{version}#{suffix}.tgz"
