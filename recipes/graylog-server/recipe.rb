@@ -55,7 +55,6 @@ class GraylogServer < FPM::Cookery::Recipe
       etc('sysconfig').install file('environment'), 'graylog-server'
     end
 
-    etc('graylog/server').install 'graylog.conf.example', 'server.conf'
     etc('graylog/server').install file('log4j2.xml')
 
     etc('init.d').install file("#{target}/init.d"), 'graylog-server'
